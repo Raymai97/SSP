@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SSP", "SSP.vbproj", "{17C41FB4-32F0-43D9-B012-57B60BA91DB4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17C41FB4-32F0-43D9-B012-57B60BA91DB4}.Debug|x86.ActiveCfg = Debug|x86
+		{17C41FB4-32F0-43D9-B012-57B60BA91DB4}.Debug|x86.Build.0 = Debug|x86
+		{17C41FB4-32F0-43D9-B012-57B60BA91DB4}.Release|x86.ActiveCfg = Release|x86
+		{17C41FB4-32F0-43D9-B012-57B60BA91DB4}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
