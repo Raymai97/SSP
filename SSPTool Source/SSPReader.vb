@@ -1,5 +1,5 @@
-﻿' MaiSoft Simple Sequence Pack (MaiSSP) Reader v1.0
-' Written by MaiSoft (Raymai97) on 9 Dec 2013.
+﻿' MaiSoft Simple Sequence Pack (MaiSSP) Reader v1.1
+' Written by MaiSoft (Raymai97) on 10 Dec 2013.
 
 Imports System.IO
 Imports System.ComponentModel
@@ -123,9 +123,9 @@ Public Class SSPReader
         Header = Header.Substring(0, Header.IndexOf("//"))
         Dim FilesPosInfo() As String = Header.Split("/"c)
         _FileCount = FilesPosInfo.Length
-        Dim FilePos, FileSize As Integer
+        Dim FilePos, FileSize As Long
         For Each Info As String In FilesPosInfo
-            If Integer.TryParse(Info, FileSize) Then
+            If Long.TryParse(Info, FileSize) Then
                 _FilePos.Add(FilePos)
                 FilePos += FileSize
                 _FileSize.Add(FileSize)
@@ -152,7 +152,8 @@ Public Class SSPReader
                         End If
                     End If
                     ' If cache is 1MB, file is 2.5MB, last chunk size would be 0.5MB...
-                    Dim LastChunkSize As Integer = Convert.ToInt32(FileLength - (CacheSize * (ChunkCount - 1)))
+                    ' Due to VB.NET bug, CLng(1) * is need to make sure it calculated in Long before casting to Integer
+                    Dim LastChunkSize As Integer = Convert.ToInt32(FileLength - (CLng(1) * CacheSize * (ChunkCount - 1)))
                     For a As Integer = 1 To ChunkCount
                         If Bw.CancellationPending Then Throw New Exception("User cancelled the operation.")
                         Bw.ReportProgress(0, New Progress(ProgressType.Extracting, FileIndex, a, ChunkCount))

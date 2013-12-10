@@ -1,6 +1,6 @@
 ﻿Public Class frmStartup
 
-    Private Sub btnStartMaker_Click(sender As System.Object, e As System.EventArgs) Handles btnStartMaker.Click
+    Private Sub btnMaker_Click(sender As System.Object, e As System.EventArgs) Handles btnMaker.Click
         Me.Hide()
         frmMaker.ShowDialog()
         Me.Show()
@@ -10,6 +10,10 @@
         Me.Hide()
         frmReader.ShowDialog()
         Me.Show()
+    End Sub
+
+    Private Sub lnkHomepage_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkHomepage.LinkClicked
+        Process.Start("https://github.com/Raymai97/SSP")
     End Sub
 
 End Class

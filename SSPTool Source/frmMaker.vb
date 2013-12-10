@@ -1,5 +1,5 @@
-﻿' MaiSoft Simple Sequence Pack (MaiSSP) Writer UI Sample v1.0
-' Written by MaiSoft (Raymai97) on 9 Dec 2013.
+﻿' MaiSoft Simple Sequence Pack (MaiSSP) Writer UI Sample v1.1
+' Written by MaiSoft (Raymai97) on 10 Dec 2013.
 
 Imports System.IO
 Imports SSP.AppShared
@@ -332,6 +332,7 @@ Public Class frmMaker
 
     Private Sub frmMaker_Lv_DragDrop(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles MyBase.DragDrop, lv.DragDrop
         AddFilesByDragDrop(e)
+        Me.Activate()
     End Sub
 
     Private Sub frmMaker_Lv_DragEnter(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles MyBase.DragEnter, lv.DragEnter

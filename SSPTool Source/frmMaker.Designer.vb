@@ -66,7 +66,7 @@ Partial Class frmMaker
         '
         Me.lblStatus.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblStatus.AutoEllipsis = True
-        Me.lblStatus.Location = New System.Drawing.Point(9, 444)
+        Me.lblStatus.Location = New System.Drawing.Point(9, 441)
         Me.lblStatus.Margin = New System.Windows.Forms.Padding(3)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(693, 15)
@@ -255,7 +255,7 @@ Partial Class frmMaker
         Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.btnSaveSSP)
-        Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.KeyPreview = True
         Me.MaximizeBox = False

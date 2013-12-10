@@ -70,7 +70,9 @@ Partial Class dlgError
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
+        Me.MaximumSize = New System.Drawing.Size(500, 300)
         Me.MinimizeBox = False
+        Me.MinimumSize = New System.Drawing.Size(500, 300)
         Me.Name = "dlgError"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False

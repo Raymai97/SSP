@@ -53,7 +53,7 @@ Partial Class frmReader
         '
         Me.lblStatus.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblStatus.Location = New System.Drawing.Point(9, 244)
+        Me.lblStatus.Location = New System.Drawing.Point(9, 241)
         Me.lblStatus.Margin = New System.Windows.Forms.Padding(3)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(573, 15)
@@ -188,6 +188,7 @@ Partial Class frmReader
         '
         'frmReader
         '
+        Me.AllowDrop = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(594, 271)

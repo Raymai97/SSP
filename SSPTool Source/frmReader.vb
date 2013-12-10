@@ -1,5 +1,5 @@
-﻿' MaiSoft Simple Sequence Pack (MaiSSP) Reader UI Sample v1.0
-' Written by MaiSoft (Raymai97) on 9 Dec 2013.
+﻿' MaiSoft Simple Sequence Pack (MaiSSP) Reader UI Sample v1.1
+' Written by MaiSoft (Raymai97) on 10 Dec 2013.
 
 Imports SSP.AppShared
 
@@ -8,6 +8,20 @@ Public Class frmReader
     Private WithEvents SSP As SSPReader
     Private ExitAfterCancelled As Boolean
     Private ExtractPath As String
+
+    Public Sub OpenSSP(SSPPath As String)
+        Try
+            SSP = New SSPReader(SSPPath)
+        Catch ex As Exception
+            MessageBox.Show("SSP cannot be opened!" & vbCrLf & ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End Try
+    End Sub
+
+    Private Sub CloseSSP()
+        SSP.Dispose()
+        SSP = Nothing
+    End Sub
 
     Private Sub UpdateCtrl()
         If SSP Is Nothing Then
@@ -35,11 +49,13 @@ Public Class frmReader
 
     Private Sub UpdateCtrl2(Busy As Boolean)
         If Busy Then
+            Me.AllowDrop = False
             grpExtract.Enabled = False
             btnCloseSSP.Enabled = False
             btnStopExtract.Enabled = True
             btnStopExtract.Select()
         Else
+            Me.AllowDrop = True
             grpExtract.Enabled = True
             btnCloseSSP.Enabled = True
             btnStopExtract.Enabled = False
@@ -47,6 +63,18 @@ Public Class frmReader
             lblStatus.Text = "Idle..."
             ProgressBar1.Value = 0
         End If
+    End Sub
+
+    Private Sub frmReader_DragDrop(sender As Object, e As System.Windows.Forms.DragEventArgs) Handles Me.DragDrop
+        If e.Data.GetDataPresent(DataFormats.FileDrop) = False Then Return
+        Dim SSPPath As String = CType(e.Data.GetData(DataFormats.FileDrop), String())(0)
+        OpenSSP(SSPPath)
+        UpdateCtrl()
+        Me.Activate()
+    End Sub
+
+    Private Sub frmReader_DragEnter(sender As Object, e As System.Windows.Forms.DragEventArgs) Handles Me.DragEnter
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then e.Effect = DragDropEffects.Copy
     End Sub
 
     Private Sub frmReader_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
@@ -58,8 +86,7 @@ Public Class frmReader
                 End If
                 e.Cancel = True
             Else
-                SSP.Dispose()
-                SSP = Nothing
+                CloseSSP()
             End If
         End If
     End Sub
@@ -77,19 +104,13 @@ Public Class frmReader
         ofd.Title = "Select SSP file"
         ofd.ShowDialog()
         If ofd.FileName <> "" Then
-            Try
-                SSP = New SSPReader(ofd.FileName)
-                UpdateCtrl()
-            Catch ex As Exception
-                MessageBox.Show("SSP cannot be opened!" & vbCrLf & ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End Try
+            OpenSSP(ofd.FileName)
+            UpdateCtrl()
         End If
     End Sub
 
     Private Sub btnCloseSSP_Click(sender As System.Object, e As System.EventArgs) Handles btnCloseSSP.Click
-        SSP.Dispose()
-        SSP = Nothing
+        CloseSSP()
         UpdateCtrl()
     End Sub
 
@@ -150,16 +171,15 @@ Public Class frmReader
     Private Sub SSP_Done(Cancelled As Boolean, Err As System.Exception) Handles SSP.Done
         If Cancelled Then
             If ExitAfterCancelled Then
-                SSP.Dispose()
-                SSP = Nothing
+                CloseSSP()
                 Me.Close()
-                Return
+            Else
+                Dim Msg As String = "SSP Extraction failed!"
+                If Err IsNot Nothing Then
+                    Msg &= vbCrLf & Err.Message
+                End If
+                MessageBox.Show(Msg, "Oops...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
-            Dim Msg As String = "SSP Extraction failed!"
-            If Err IsNot Nothing Then
-                Msg &= vbCrLf & Err.Message
-            End If
-            MessageBox.Show(Msg, "Oops...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         Else
             lblStatus.Text = "Done!"
             ProgressBar1.Value = 100

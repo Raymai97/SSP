@@ -1,5 +1,5 @@
-﻿' MaiSoft Simple Sequence Pack (MaiSSP) Writer v1.0
-' Written by MaiSoft (Raymai97) on 9 Dec 2013.
+﻿' MaiSoft Simple Sequence Pack (MaiSSP) Writer v1.1
+' Written by MaiSoft (Raymai97) on 10 Dec 2013.
 
 Imports System.IO
 Imports System.ComponentModel
@@ -52,7 +52,9 @@ Public Class SSPWriter
                     Header &= Files(a).Length & "/"
                 Next
                 Header &= "/"
-                Header = Header.Insert(7, (Header.Length + Header.Length.ToString.Length).ToString)
+                Dim HeaderLen As Integer = (Header.Length + Header.Length.ToString.Length)
+                Dim HeaderLenStrLen As Integer = HeaderLen.ToString.Length
+                Header = Header.Insert(7, (HeaderLenStrLen + Header.Length).ToString)
                 Writer.Write(Header)
                 Writer.Flush()
 
@@ -71,7 +73,8 @@ Public Class SSPWriter
                             End If
                         End If
                         ' If cache is 1MB, file is 2.5MB, last chunk size would be 0.5MB...
-                        Dim LastChunkSize As Integer = Convert.ToInt32(Files(i).Length - (CacheSize * (ChunkCount - 1)))
+                        ' Due to VB.NET bug, CLng(1) * is need to make sure it calculated in Long before casting to Integer
+                        Dim LastChunkSize As Integer = Convert.ToInt32(Files(i).Length - (CLng(1) * CacheSize * (ChunkCount - 1)))
                         For a As Integer = 1 To ChunkCount
                             If Bw.CancellationPending Then Throw New Exception("User cancelled the operation.")
                             Bw.ReportProgress(0, New Progress(ProgressType.Writing, i, a, ChunkCount))

@@ -12,10 +12,14 @@ Namespace My
     Partial Friend Class MyApplication
 
         Private Sub MyApplication_Startup(sender As Object, e As Microsoft.VisualBasic.ApplicationServices.StartupEventArgs) Handles Me.Startup
-            Dim icon As Icon = GetIconOf(System.Windows.Forms.Application.ExecutablePath, True)
+            Dim icon As Icon = GetIconOf(System.Windows.Forms.Application.ExecutablePath, False)
             frmStartup.Icon = icon
             frmMaker.Icon = icon
             frmReader.Icon = icon
+            If e.CommandLine.Count > 0 Then
+                frmReader.OpenSSP(e.CommandLine(0))
+                frmReader.ShowDialog()
+            End If
         End Sub
 
         Private Sub MyApplication_UnhandledException(sender As Object, e As Microsoft.VisualBasic.ApplicationServices.UnhandledExceptionEventArgs) Handles Me.UnhandledException
